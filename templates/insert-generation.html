@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Flask Login{% endblock %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+
+  .center {
+    margin: 0 auto;
+    display: none;
+  }
+  
+  .outer-ring {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    height: 100px;
+    width: 100px;
+    background-image: linear-gradient(135deg, #FEED07 0%, #FE6A50 5%, #ED00AA 15%, #2FE3FE 50%, #8900FF 100%);
+    border-radius: 50%;
+    
+    /*  Rotate  */
+    animation-duration: 3s;
+    animation-name: rotate;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  .inner-ring {
+    position: absolute;
+    top: calc(50% - 45px);
+    left: calc(50% - 45px);
+    height: 90px;
+    width: 90px;
+    background-color: rgb(40, 40, 40);
+    border-radius: 50%;
+  }
+  
+  @keyframes rotate {
+      0% {transform:rotate(0deg);}
+      100% {transform:rotate(360deg);}
+  }
+    </style>
+
+  <form>
+    <label for="testo">Inserisci il tuo testo per creare l'immagine:</label>
+    <input type="text" id="testo" name="text">
+    <input type="submit" value="Invia" id="submit" >
+  </form>
+  <div class="outer-ring center" id="outer"></div>
+  <div class="inner-ring center" id="inner"></div>  
+  <script>
+    document.getElementById("submit").addEventListener("click", function(event) {
+      event.preventDefault();
+      console.log("Showing loading screen");
+      document.getElementById("outer").style.display = "block";
+      document.getElementById("inner").style.display = "block";
+      var txt = document.getElementById("testo").value;
+      console.log(txt);
+      $.post("/image-generation",
+        {
+          text: txt
+        }
+      ,function(data,status){
+        if(status=="success") {
+          console.log(data)
+          window.location = "/image-generation/"+data.resourceID;
+        } else{
+          alert(status)
+        }
+    }); 
+    });
+  </script>
+{% endblock%}

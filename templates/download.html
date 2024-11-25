@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Flask Login{% endblock %}
+
+{% block content %}
+  <h2>Ascolta o Scarica il File WAV</h2>
+  <audio controls>
+    <source src="/static/audio/{{path}}" type="audio/wav">
+    Il tuo browser non supporta l'elemento audio.
+  </audio>
+  <h2>User: {{ user }}</h2>
+  <h2>prompt: {{prompt}}</h2>
+  <br>
+  <a href="{{path}}" download>Scarica il File WAV</a>
+{% endblock%}

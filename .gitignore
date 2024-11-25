@@ -1,0 +1,11 @@
+.env
+static/generated-images/*
+static/audio/*
+.venv
+.sel
+__pycache
+.pytest_cache
+*.pyc
+project.db
+instance
+migrations

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}GG{% endblock %}
+
+{% block content %}
+        Recently created audios
+        <div  style="overflow-y:auto;">
+            <table>
+                {% for audio in audios %}
+                    <audio controls class="w-100" src="static/audio/{{audio.resourceID}}.mp3"></audio>
+                {% endfor %}
+            </table>
+        </div>
+        Recently created images
+        <div  style="overflow-y:auto;" id="image-table">
+            <table>
+                {% for image in images %}
+                    <div>
+                        <a href="/image-generation/{{image.resourceID}}"><img class="img-thumbnail" src="/static/generated-images/{{image.resourceID}}"></a>
+                    </div>
+                {% endfor %}
+            </table>
+        </div>
+        <button onclick="loadmore">
+{% endblock%}
